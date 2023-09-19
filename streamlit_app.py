@@ -14,7 +14,6 @@ streamlit.text('🥑🍞 Avocado Toast')
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
 #pandas
-
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
@@ -45,7 +44,7 @@ except URLError as e:
   streamlit.error()
 
 #SNF
-streamlit.header("The frit load list contains:")
+streamlit.header("View Our Fruit List- Add Your Favourites!:")
 #SNF Function
 def fruit_load_get_list():
    with my_cnx.cursor() as my_cur:
@@ -53,9 +52,10 @@ def fruit_load_get_list():
       return my_cur.fetchall()
    
 # Adding Button to choose Fruit
-if streamlit.button('Get Fruit Load List'):
+if streamlit.button('Get Fruit List'):
    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
    my_data_rows = fruit_load_get_list()
+   my_cnx.close()
    streamlit.dataframe(my_data_rows)
 
 # alow the end user to add friut
@@ -69,4 +69,5 @@ add_my_fruit=streamlit.text_input('What fruit would you like to add?')
 if streamlit.button('Add a fruit to the list'):
    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
    back_from_function = insert_row_snowflake(add_my_fruit)
+   my_cnx.close()
    streamlit.text(back_from_function)
