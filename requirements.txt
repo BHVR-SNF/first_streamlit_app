@@ -4,3 +4,4 @@ snowflake-connector-python
 urllib3==1.26.16
 
 streamlit==1.25.0
+pip install -U  --upgrade pip
