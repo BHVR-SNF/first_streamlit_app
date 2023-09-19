@@ -48,7 +48,7 @@ except URLError as e:
 streamlit.header("The frit load list contains:")
 #SNF Function
 def fruit_load_get_list():
-   with my_cnx.cursor() as my_cur
+   with my_cnx.cursor() as my_cur:
    my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
    return my_cur.fetchall()
 # Adding Button to choose Fruit
