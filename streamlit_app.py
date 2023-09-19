@@ -49,13 +49,14 @@ streamlit.header("The frit load list contains:")
 #SNF Function
 def fruit_load_get_list():
    with my_cnx.cursor() as my_cur:
-   my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
-   return my_cur.fetchall()
+      my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
+      return my_cur.fetchall()
+   
 # Adding Button to choose Fruit
 if streamlit.button('Get Fruit Load List'):
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_data_rows = fruit_load_get_list()
-streamlit.dataframe(my_data_rows)
+   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+   my_data_rows = fruit_load_get_list()
+   streamlit.dataframe(my_data_rows)
 
 # Script break
 streamlit.stop()
