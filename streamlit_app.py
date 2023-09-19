@@ -28,7 +28,6 @@ streamlit.dataframe(fruits_to_show)
 #create a function
 def get_fruity_vice_data(this_fruit_choice):
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" +fruit_choice)
-   # write your own comment -what does the next line do? 
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
   return fruityvice_normalized
    
@@ -45,21 +44,27 @@ try:
 except URLError as e:
   streamlit.error()
 
+#SNF
+streamlit.header("The frit load list contains:")
+#SNF Function
+def fruit_load_get_list():
+   with my_cnx.cursor() as my_cur
+   my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
+   return my_cur.fetchall()
+# Adding Button to choose Fruit
+if streamlit.button('Get Fruit Load List')
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+my_data_rows = fruit_load_get_list()
+streamlit.dataframe(my_data_rows)
+
 # Script break
 streamlit.stop()
-
-#SNF
-
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
-my_data_rows = my_cur.fetchall()
-streamlit.header("The frit load list contains:")
-streamlit.dataframe(my_data_rows)
 
 # alow the end user to add friut
 add_my_fruit=streamlit.text_input('What fruit would you like to add?','Jackfruit')
 streamlit.write('Thanks for adding Jackfruit')
+
+
 
 #This will not work as intended.
 my_cur.execute("insert into FRUIT_LOAD_LIST values('From Streamlit')")
